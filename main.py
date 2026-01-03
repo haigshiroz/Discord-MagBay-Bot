@@ -1,3 +1,4 @@
+import random
 import discord
 
 intents = discord.Intents.default()
@@ -14,9 +15,14 @@ async def on_message(message):
     # Ignore messages from self
     if message.author == client.user:
         return
-    
-    if message.content.raw_mentions.contains(client.user.id):
-        await message.channel.send('You mentioned me!')
 
+    if client.user.id in message.raw_mentions:
+        await message.channel.send(random.choice(sentences))
 
-client.run('your token here')
+with open("token.txt", "r", encoding="utf-8") as file:
+    token = file.read()
+
+with open("messagebank.txt", "r", encoding="utf-8") as file:
+    sentences = [line.strip() for line in file if line.strip()]
+
+client.run(token)
