@@ -16,7 +16,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if client.user.id in message.raw_mentions:
+    if client.user.id in message.raw_mentions or "mica" in message.content.lower():
         await message.channel.send(random.choice(sentences))
 
 with open("token.txt", "r", encoding="utf-8") as file:
